@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <title>Weather app</title>
+    </head>
+    <body>
+        <div class="box">
+            <div class="wave-one"></div>
+            <div class="wave-two"></div>
+            <div class="wave-three"></div>
+            <div id="weathercon">
+                <i class="fas fa-sun" style="color: #eccc68"></i>  </div>
+            </div>
+
+            <div class = "info">
+                <h2 class="location"><i class="fas fa-street-view" style = "color : rgb(187, 59, 101)">{% location %}, {% Countrycode %}</i></h2>
+                <p id="date">WED | MAR 7 |12:42 am</p>
+                <h1 class ="temp">{% tempval %}&deg;C</h1>
+                <h3 class="tempMinMax">{% mintemp %}&deg;C | {% maxtemp %}&deg;C</h3>
+            </div>
+        </div>
+
+        <script>
+            const currdate = document.getElementById("date");
+            let weather = document.getElementById("weathercon");
+
+            const tempstatus = "{% tempstatus %}";
+            if (tempstatus== "Sunny"){
+                weather.innerHTML=' <i class="fas fa-sun" style="color: #eccc68"></i>'
+            }
+            else if (tempstatus== "Clouds"){
+                weather.innerHTML=' <i class="fas fa-cloud" style="color: #66B9D2"></i>'
+            }
+            else if (tempstatus== "Rainy"){
+                weather.innerHTML=' <i class="fas fa-cloud-rain" style="color: #a4b0be"></i>'
+            }
+            else{
+                weather.innerHTML = ' <i class="fas fa-cloud" style="color: #f1f2f6"></i>'
+            }
+
+            const getCurrentTime =()=>{
+                var weekday =["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+                var monthname =["january","febuary","March","April","May","June","July","August","September","October","November","December"];
+                var today = new Date();
+                var month = today.getMonth();
+                var day = today.getDate();
+                var hour = today.getHours();
+                var min = today.getMinutes();
+                var period = "AM"
+                if(hour>11){
+                    period = "PM";
+                    if(hour>12){
+                        hour-=12;
+                    }
+                }
+                if(hour<10)
+                   hour="0"+hour;
+                if(min<10)
+                    min = "0"+min;
+                let ret = weekday[today.getDay()]+"  |  "+monthname[ today.getMonth()]+"   "+today.getDate()+ "  |  "+hour+":"+min+" "+period;
+                return ret;
+            };
+             currdate.innerHTML= getCurrentTime();
+        </script>
+    </body>
+</html>
